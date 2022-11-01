@@ -1,5 +1,7 @@
 import './bootstrap';
 
+import '../sass/app.scss'
+
 import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
@@ -13,3 +15,6 @@ window.IMask = IMask;
 import $ from 'jquery'
 
 window.jQuery = window.$ = $
+
+
+
