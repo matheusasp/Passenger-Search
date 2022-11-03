@@ -47,8 +47,18 @@ class PassengerRepository
 
     public function findByTicket($ticket)
     {
-
-    return $this->model->whereTicket($ticket)->get();
+        return $this->model->select(
+            'partner_id',
+            'destiny_group_id',
+            'departure',
+            'arrival',
+            'cpf',
+            'ticket',
+            'status',
+            'pdf'
+        )
+        ->with('destinyGroup:id,name','partner:id,name')
+        ->whereTicket($ticket)->get();
 
     }
 

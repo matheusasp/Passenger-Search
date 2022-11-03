@@ -56,6 +56,7 @@
 </div>
 @endisset
 
+
     @isset($data)
     <div class="container">
         <table class="table table-bordered table-striped" id="datatable-default" style="padding: 20px;">

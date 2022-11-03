@@ -9,14 +9,16 @@ use App\Models\Passenger;
 use App\Repository\PassengerRepository;
 use App\Repository\PartnerRepository;
 use App\Repository\DestinyGroupRepository;
+use App\Repository\LogsRepository;
 
 class PassengerController extends Controller
 {
 
-    public function __construct(PassengerRepository $passengerRepository, PartnerRepository $partnerRepository, DestinyGroupRepository $destinyGroupRepository  ) {
+    public function __construct(PassengerRepository $passengerRepository, PartnerRepository $partnerRepository, DestinyGroupRepository $destinyGroupRepository, LogsRepository $logsRepository  ) {
         $this->passengerRepository = $passengerRepository;
         $this->partnerRepository = $partnerRepository;
         $this->destinyGroupRepository = $destinyGroupRepository;
+        $this->logsRepository = $logsRepository;
     }
     
     public function getPassanger(GetPassengerRequest $request) {
@@ -32,14 +34,17 @@ class PassengerController extends Controller
             $data = $this->passengerRepository->findByTicket( $dataSearch );
             $title = "Ticket";
         }
-
+        $logData = ['user' => auth()->user()->id,
+                    'operation' => $title,
+                    'searched' => $dataSearch
+        ];
+        $this->logsRepository->create($logData);
 
         if(count($data)==0) {
             return view('show-info', [
                 "search" => "Não foi localizado bilhete com $title: $dataSearch" 
             ]);
         } else {
-
             return view('show-info', [
                 "data" => $data->toArray(),
                 "search" => "Resultado de busca com o $title: $dataSearch"
