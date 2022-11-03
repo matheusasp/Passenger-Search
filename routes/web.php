@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::middleware(['guest'])->get('/', function () {
     return view('auth.login');
 });
 
@@ -22,9 +22,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
+    Route::get('/busca-de-bilhetes', function () {
         return view('show-info');
-    })->name('dashboard');
+    })->name('show.info');
 });
 
 Route::get('/register', [Laravel\Fortify\Http\Controllers\RegisteredUserController::class, 'create'])

@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
              'name' => 'Vinicio Santos',
              'email' => 'vini@heroseguros.com.br',
              'password' => Hash::make('12345678'),
-             'profile' => 'USER'
+             'profile' => 'ADMIN'
          ]);
     }
 }

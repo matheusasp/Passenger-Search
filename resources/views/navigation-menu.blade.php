@@ -5,17 +5,25 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('show.info') }}">
                     <img src="{{ asset('images/logo.png') }}" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-jet-nav-link href="{{ route('show.info') }}" :active="request()->routeIs('show.info')">
+                        Busca de bilhetes
                     </x-jet-nav-link>
                 </div>
+
+                @if(auth()->user()->profile == 'ADMIN')
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
+                        Cadastro
+                    </x-jet-nav-link>
+                </div>
+                @endif
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -137,8 +145,8 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+            <x-jet-responsive-nav-link href="{{ route('show.info') }}" :active="request()->routeIs('show.info')">
+                {{ __('show.info') }}
             </x-jet-responsive-nav-link>
         </div>
 
