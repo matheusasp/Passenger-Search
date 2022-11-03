@@ -27,6 +27,14 @@ Route::middleware([
     })->name('dashboard');
 });
 
+Route::get('/register', [Laravel\Fortify\Http\Controllers\RegisteredUserController::class, 'create'])
+        ->middleware(['auth', 'isAdmin'])
+        ->name('register');
+
+
+Route::post('/register', [Laravel\Fortify\Http\Controllers\RegisteredUserController::class, 'store'])
+        ->middleware(['auth', 'isAdmin']);
+
 
 Route::get('/info', [App\Http\Controllers\PassengerController::class, 'getPassanger'])->name('getPassanger.get');
 
