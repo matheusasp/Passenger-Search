@@ -48,45 +48,45 @@
                        
                     </form>
 
-    @isset($search)
-    <div class="container">
-        <div class="alert alert-info" role="alert">
-        {{$search}}
-        </div>
-    </div>
-    @endisset
+                    @isset($search)
+                    <div class="container">
+                        <div class="alert alert-info" role="alert">
+                        {{$search}}
+                        </div>
+                    </div>
+                    @endisset
 
 
-    @isset($data)
-    <div class="container">
-        <table class="table table-bordered table-striped" id="datatable-default" style="padding: 20px;">
-            <thead>
-                <tr>
-                    <th>Parceiro</th>
-                    <th>Destino</th>
-                    <th>Data de vigência</th>
-                    <th>CPF</th>
-                    <th>Ticket</th>
-                    <th>Status</th>
-                    <th>Link</th>
-                </tr>
-            </thead>
-        @foreach ($data as $data)    
-            <tbody style="padding: 20px;">
-                <tr class="gradeX">
-                    <td style="vertical-align: middle"><center>{{$data['partner']['name']}}</center></td>
-                    <td style="vertical-align: middle"><center>{{$data['destiny_group']['name']}}</center></td>
-                    <td style="vertical-align: middle"><center>{{$data['departure']}} / {{$data['arrival']}} </center></td>
-                    <td style="vertical-align: middle"><center>{{$data['cpf']}}</center></td>
-                    <td style="vertical-align: middle"><center>{{$data['ticket']}}</center></td>
-                    <td style="vertical-align: middle"><center>{!!$data['status']!!}</center></td>
-                    <td style="vertical-align: middle"><center>{!!$data['pdf']!!}</center></td>
-                </tr>
-            </tbody>
-        @endforeach        
-        </table>
-    </div>
-    @endisset    
+                    @isset($data)
+                    <div class="container">
+                        <table class="table table-bordered table-striped" id="datatable-default" style="padding: 20px;">
+                            <thead>
+                                <tr>
+                                    <th>Parceiro</th>
+                                    <th>Destino</th>
+                                    <th>Data de vigência</th>
+                                    <th>CPF</th>
+                                    <th>Ticket</th>
+                                    <th>Status</th>
+                                    <th>Link</th>
+                                </tr>
+                            </thead>
+                        @foreach ($data as $data)    
+                            <tbody style="padding: 20px;">
+                                <tr class="gradeX">
+                                    <td style="vertical-align: middle"><center>{{$data['partner']['name']}}</center></td>
+                                    <td style="vertical-align: middle"><center>{{$data['destiny_group']['name']}}</center></td>
+                                    <td style="vertical-align: middle"><center>{{$data['departure']}} / {{$data['arrival']}} </center></td>
+                                    <td style="vertical-align: middle"><center>{{$data['cpf']}}</center></td>
+                                    <td style="vertical-align: middle"><center>{{$data['ticket']}}</center></td>
+                                    <td style="vertical-align: middle"><center>{!!$data['status']!!}</center></td>
+                                    <td style="vertical-align: middle"><center>{!!$data['pdf']!!}</center></td>
+                                </tr>
+                            </tbody>
+                        @endforeach        
+                        </table>
+                    </div>
+                    @endisset    
 
             </div>
         </div>
