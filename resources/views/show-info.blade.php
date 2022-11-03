@@ -6,7 +6,7 @@
 
 </x-slot>
 
-<div class="py-12">
+<div class="">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 p-5">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg pt-3 mb-5">
 
@@ -48,13 +48,13 @@
                        
                     </form>
 
-@isset($search)
-<div class="container">
-    <div class="alert alert-info" role="alert">
-    {{$search}}
+    @isset($search)
+    <div class="container">
+        <div class="alert alert-info" role="alert">
+        {{$search}}
+        </div>
     </div>
-</div>
-@endisset
+    @endisset
 
 
     @isset($data)
@@ -74,13 +74,13 @@
         @foreach ($data as $data)    
             <tbody style="padding: 20px;">
                 <tr class="gradeX">
-                    <td><center>{{$data['partner']['name']}}</center></td>
-                    <td><center>{{$data['destiny_group']['name']}}</center></td>
-                    <td><center>{{$data['departure']}} / {{$data['arrival']}} </center></td>
-                    <td><center>{{$data['cpf']}}</center></td>
-                    <td><center>{{$data['ticket']}}</center></td>
-                    <td><center>{!!$data['status']!!}</center></td>
-                    <td><center>{!!$data['pdf']!!}</center></td>
+                    <td style="vertical-align: middle"><center>{{$data['partner']['name']}}</center></td>
+                    <td style="vertical-align: middle"><center>{{$data['destiny_group']['name']}}</center></td>
+                    <td style="vertical-align: middle"><center>{{$data['departure']}} / {{$data['arrival']}} </center></td>
+                    <td style="vertical-align: middle"><center>{{$data['cpf']}}</center></td>
+                    <td style="vertical-align: middle"><center>{{$data['ticket']}}</center></td>
+                    <td style="vertical-align: middle"><center>{!!$data['status']!!}</center></td>
+                    <td style="vertical-align: middle"><center>{!!$data['pdf']!!}</center></td>
                 </tr>
             </tbody>
         @endforeach        

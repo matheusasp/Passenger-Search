@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,12 +28,12 @@ Route::middleware([
     })->name('show.info');
 });
 
-Route::get('/register', [Laravel\Fortify\Http\Controllers\RegisteredUserController::class, 'create'])
+Route::get('/register', [RegisteredUserController::class, 'create'])
         ->middleware(['auth', 'isAdmin'])
         ->name('register');
 
 
-Route::post('/register', [Laravel\Fortify\Http\Controllers\RegisteredUserController::class, 'store'])
+Route::post('/register', [RegisteredUserController::class, 'store'])
         ->middleware(['auth', 'isAdmin']);
 
 
