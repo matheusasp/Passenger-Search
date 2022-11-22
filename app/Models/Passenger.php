@@ -39,6 +39,10 @@ class Passenger extends Model
     }
     
     public function getPdfAttribute($data) {
-        return "<a href='https://heroseguros.s3.sa-east-1.amazonaws.com/pdf/" . $data . "' target='blank' class='btn btn-secondary'>Link do Bilhete</a>";
+        if($this->pdf_unique==1){
+            return "<a href='https://bilhete.heroseguros.com.br/pt/ticket/" . $data . "' target='blank' class='btn btn-secondary'>Link do Bilhete</a>";
+        }else{
+            return "<a href='https://heroseguros.s3.sa-east-1.amazonaws.com/pdf/" . $data . "' target='blank' class='btn btn-secondary'>Link do Bilhete</a>";
+        }
     }
 }

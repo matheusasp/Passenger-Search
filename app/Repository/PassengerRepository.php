@@ -39,7 +39,8 @@ class PassengerRepository
             'cpf',
             'ticket',
             'status',
-            'pdf'
+            'pdf',
+            'pdf_unique'
         )
         ->with('destinyGroup:id,name','partner:id,name')
         ->whereCpf($doc)->get();
@@ -55,7 +56,8 @@ class PassengerRepository
             'cpf',
             'ticket',
             'status',
-            'pdf'
+            'pdf',
+            'pdf_unique'
         )
         ->with('destinyGroup:id,name','partner:id,name')
         ->whereTicket($ticket)->get();
