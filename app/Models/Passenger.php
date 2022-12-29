@@ -37,11 +37,19 @@ class Passenger extends Model
 
     public function getStatusAttribute($data) {
 
+        if(Carbon::now()->toDateString() <= $this->arrival && Carbon::now()->toDateString() >= $this->departure) {
+            return ($data == 1 ? '<span class="badge bg-success">ATIVO - EM VIGÊNCIA</span>' : '<span class="badge bg-danger">CANCELADO</span>');
+        }
+
+        if(Carbon::now()->toDateString() < $this->arrival && Carbon::now()->toDateString() < $this->departure) {
+            return ($data == 1 ? '<span class="badge bg-success">ATIVO</span>' : '<span class="badge bg-danger">CANCELADO</span>');
+        }
+
         if(Carbon::now()->toDateString() > $this->arrival) {
             return ($data == 1 ? '<span class="badge bg-warning">ATIVO - VIGÊNCIA VENCIDA</span>' : '<span class="badge bg-danger">CANCELADO</span>');
         }
 
-        return ($data == 1 ? '<span class="badge bg-success">ATIVO - EM VIGÊNCIA</span>' : '<span class="badge bg-danger">CANCELADO</span>');
+       // return ($data == 1 ? '<span class="badge bg-success">ATIVO - EM VIGÊNCIA</span>' : '<span class="badge bg-danger">CANCELADO</span>');
 
     }
     
