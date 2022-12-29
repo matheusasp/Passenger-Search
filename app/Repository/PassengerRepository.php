@@ -41,7 +41,7 @@ class PassengerRepository
             'status',
             'pdf'
         )
-        ->with('destinyGroup:id,name','partner:id,name')
+        ->with('destinyGroup:id,name','partner:id,name')->orderBy('departure', 'desc')
         ->whereCpf($doc)->get();
     }
 
@@ -57,7 +57,7 @@ class PassengerRepository
             'status',
             'pdf'
         )
-        ->with('destinyGroup:id,name','partner:id,name')
+        ->with('destinyGroup:id,name','partner:id,name')->orderBy('departure', 'desc')
         ->whereTicket($ticket)->get();
 
     }
