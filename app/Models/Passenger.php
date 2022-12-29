@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Passenger extends Model
 {
@@ -35,7 +36,13 @@ class Passenger extends Model
     }
 
     public function getStatusAttribute($data) {
-        return ($data == 1 ? '<span class="badge bg-success">ATIVO</span>' : '<span class="badge bg-danger">CANCELADO</span>');
+
+        if(Carbon::now()->toDateString() > $this->arrival) {
+            return ($data == 1 ? '<span class="badge bg-warning">ATIVO - VIGÊNCIA VENCIDA</span>' : '<span class="badge bg-danger">CANCELADO</span>');
+        }
+
+        return ($data == 1 ? '<span class="badge bg-success">ATIVO - EM VIGÊNCIA</span>' : '<span class="badge bg-danger">CANCELADO</span>');
+
     }
     
     public function getPdfAttribute($data) {

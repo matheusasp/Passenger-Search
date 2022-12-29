@@ -79,7 +79,7 @@
                                     <td style="vertical-align: middle"><center>{{$data['cpf']}}</center></td>
                                     <td style="vertical-align: middle"><center>{{$data['ticket']}}</center></td>
                                     @if(Carbon\Carbon::now()->toDateString() > $data['arrival'] && $data['status'] == 'ATIVO')
-                                    <td style="vertical-align: middle"><center>{!!$data['status']!!} - VIGÊNCIA VENCIDA</center></td>
+                                    <td style="vertical-align: middle"><center>{!!$data['status']!!}</center></td>
                                     @else
                                     <td style="vertical-align: middle"><center>{!!$data['status']!!}</center></td>
                                     @endif
