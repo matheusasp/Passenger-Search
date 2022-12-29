@@ -35,10 +35,14 @@ class Passenger extends Model
     }
 
     public function getStatusAttribute($data) {
-        return ($data == 1 ? 'ATIVO' : 'CANCELADO');
+        return ($data == 1 ? '<span class="badge bg-success">ATIVO</span>' : '<span class="badge bg-danger">CANCELADO</span>');
     }
-
+    
     public function getPdfAttribute($data) {
-        return "<a href='https://lambda-hero.s3.sa-east-1.amazonaws.com/pdf/" . $data . "' target='blank' class='btn btn-secondary'>Link do bilhete</a>";
+        if($this->pdf_unique==1){
+            return "<a href='https://bilhete.heroseguros.com.br/pt/ticket/" . $data . "' target='blank' class='btn btn-secondary'>Link do Bilhete</a>";
+        }else{
+            return "<a href='https://heroseguros.s3.sa-east-1.amazonaws.com/pdf/" . $data . "' target='blank' class='btn btn-secondary'>Link do Bilhete</a>";
+        }
     }
 }
