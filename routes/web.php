@@ -33,7 +33,15 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', [App\Http\Controllers\PassengerController::class, 'getDashboard'])->name('show.info.dashboard');
+    Route::get('/dashboard-list', [App\Http\Controllers\PassengerController::class, 'listStore'])->name('show.info.list-dashboard');
+});
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\PassengerController::class, 'listPartner'])->name('show.info.list-partner');
 });
 
 Route::get('/register', [RegisteredUserController::class, 'create'])

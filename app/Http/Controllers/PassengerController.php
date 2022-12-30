@@ -10,6 +10,7 @@ use App\Repository\PassengerRepository;
 use App\Repository\PartnerRepository;
 use App\Repository\DestinyGroupRepository;
 use App\Repository\LogsRepository;
+use App\Models\Partner;
 
 class PassengerController extends Controller
 {
@@ -54,15 +55,31 @@ class PassengerController extends Controller
     }
     
 
-    public function getDashboard() {
+    public function getDashboard($partner_id) {
 
-        $data = $this->passengerRepository->dashboardInfo();
+        $data = $this->passengerRepository->dashboardInfo($partner_id);
+        $partner = Partner::all();
 
-        return view('show-info', [
-            "data" => $data->toArray(),
+        return view('show-info-dashboard', [
+            "dashboardData" => $data->toArray(),
+            'partners' => $partner,
         ]);
     }
 
+    public function listStore(Request $request)
+    {
+    
+        return $this->getDashboard($request->partner);
+    }
    
+
+    public function listPartner() {
+
+        $partner = Partner::all();
+        return view('show-info-dashboard', [
+            "partners" => $partner,
+        ]);
+    }
+
 
 }

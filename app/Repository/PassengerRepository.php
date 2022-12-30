@@ -5,6 +5,10 @@ namespace App\Repository;
 use App\Models\Passenger;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Models\UserPartners;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Partner;
 
 class PassengerRepository 
 {
@@ -65,11 +69,13 @@ class PassengerRepository
     }
 
 
-    public function dashboardInfo() {
+    public function dashboardInfo($partnerId) {
 
         $currentMonth = Carbon::now()->month;
         $nextMonth = Carbon::now()->addMonth()->month;
-
+       // dd();
+     //   dd(UserPartners::where('user_id',Auth::user()->id)->get());
+    //    dd($partnerId);
        return $this->model->select(
                     'partner_id',
                     'destiny_group_id',
@@ -80,14 +86,14 @@ class PassengerRepository
                     'status',
                     'pdf',
                     'pdf_unique'
-                )
+                )->where('partner_id', $partnerId)
                 ->where(function($query) use ($currentMonth, $nextMonth) {
                     $query->whereMonth('departure', $currentMonth)
                           ->orWhereMonth('departure', $nextMonth);
                 })
-                ->with('destinyGroup:id,name','partner:id,name')->orderBy('departure', 'asc')
-                ->get();       
+                ->with('destinyGroup:id,name','partner:id,name')->orderBy('departure', 'asc')->paginate(50);      
 
+               // dd($a->toArray());
     }
 
 }

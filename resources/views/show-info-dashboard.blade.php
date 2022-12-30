@@ -10,7 +10,34 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 p-5">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg pt-3 mb-5">
 
-                
+                    
+                    <form method="GET" action="{{ route('show.info.list-dashboard') }}" class="mb-5">
+                        @csrf
+                        <div class="mb-3">
+                        <label for="partner" class="form-label">Selecione o parceiro</label>
+                        <select name="partner" class="form-control form-control-lg @error('partner') is-invalid @enderror" required autofocus>
+                            <option>Selecione</option>
+                            @isset($partners)
+                                @foreach ($partners as $partner)
+                                    <option value="{{$partner->id}}" @if(old('partner')==$partner->id) selected @endif>{{$partner->name}}</option>
+                                @endforeach
+                            @endisset
+                            
+                        </select>
+                        @error('partner')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="kt-portlet__foot">
+                        <div class="kt-form__actions">
+                            <button type="submit" class="btn btn-primary" >Selecionar</button>
+                        </div>
+                    </div>
+                       
+                    </form>
+
                     @isset($search)
                     <div class="container">
                         <div class="alert alert-info" role="alert">
@@ -18,8 +45,7 @@
                         </div>
                     </div>
                     @endisset
-
-                    @isset($data)
+                    @isset($dashboardData)
                     <div class="container">
                         <table class="table table-bordered table-striped" id="datatable-default" style="padding: 20px;">
                             <thead>
@@ -33,7 +59,8 @@
                                     <th>Link</th>
                                 </tr>
                             </thead>
-                        @foreach ($data as $data)    
+                        @foreach ($dashboardData['data'] as $data)    
+                        
                             <tbody style="padding: 20px;">
                                 <tr class="gradeX">
                                     <td style="vertical-align: middle"><center>{{$data['partner']['name']}}</center></td>
@@ -53,8 +80,6 @@
                         </table>
                     </div>
                     @endisset    
-
-
             </div>
         </div>
     </div>
