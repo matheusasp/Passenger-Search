@@ -54,6 +54,15 @@ class PassengerController extends Controller
     }
     
 
+    public function getDashboard() {
+
+        $data = $this->passengerRepository->dashboardInfo();
+
+        return view('show-info', [
+            "data" => $data->toArray(),
+        ]);
+    }
+
    
 
 }

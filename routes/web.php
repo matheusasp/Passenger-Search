@@ -28,6 +28,14 @@ Route::middleware([
     })->name('show.info');
 });
 
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\PassengerController::class, 'getDashboard'])->name('show.info.dashboard');
+});
+
 Route::get('/register', [RegisteredUserController::class, 'create'])
         ->middleware(['auth', 'isAdmin'])
         ->name('register');
