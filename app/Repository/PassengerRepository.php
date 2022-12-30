@@ -73,9 +73,7 @@ class PassengerRepository
 
         $currentMonth = Carbon::now()->month;
         $nextMonth = Carbon::now()->addMonth()->month;
-       // dd();
-     //   dd(UserPartners::where('user_id',Auth::user()->id)->get());
-    //    dd($partnerId);
+
        return $this->model->select(
                     'partner_id',
                     'destiny_group_id',
@@ -92,8 +90,6 @@ class PassengerRepository
                           ->orWhereMonth('departure', $nextMonth);
                 })
                 ->with('destinyGroup:id,name','partner:id,name')->orderBy('departure', 'asc')->paginate(50);      
-
-               // dd($a->toArray());
     }
 
 }

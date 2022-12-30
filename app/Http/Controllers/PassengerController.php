@@ -63,12 +63,12 @@ class PassengerController extends Controller
         return view('show-info-dashboard', [
             "dashboardData" => $data->toArray(),
             'partners' => $partner,
+            'links' => $data
         ]);
     }
 
     public function listStore(Request $request)
     {
-    
         return $this->getDashboard($request->partner);
     }
    

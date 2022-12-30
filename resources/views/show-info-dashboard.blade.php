@@ -79,6 +79,9 @@
                         @endforeach        
                         </table>
                     </div>
+                    <div class="d-flex justify-content-center">
+            {!! $links->appends(['partner' => $dashboardData['data'][0]['partner_id'] ])->links() !!}
+        </div>
                     @endisset    
             </div>
         </div>
