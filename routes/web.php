@@ -41,7 +41,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', [App\Http\Controllers\PassengerController::class, 'listPartner'])->name('show.info.list-partner');
+    Route::get('/dashboard', [App\Http\Controllers\PassengerController::class, 'listStore'])->name('show.info.list-partner');
 });
 
 Route::get('/register', [RegisteredUserController::class, 'create'])

@@ -11,6 +11,7 @@ use App\Repository\PartnerRepository;
 use App\Repository\DestinyGroupRepository;
 use App\Repository\LogsRepository;
 use App\Models\Partner;
+use Carbon\Carbon;
 
 class PassengerController extends Controller
 {
@@ -58,12 +59,30 @@ class PassengerController extends Controller
     public function getDashboard($partner_id) {
 
         $data = $this->passengerRepository->dashboardInfo($partner_id);
-        $partner = Partner::all();
+
+        $dataOrganized = [];
+
+        $destinyGroups = $this->destinyGroupRepository->all();
+
+        foreach($destinyGroups as $destinyGroup) {
+          $dataOrganized['currentMonth'][$destinyGroup->name] = 0;
+          $dataOrganized['nextMonth'][$destinyGroup->name] = 0;
+        }
+        
+        foreach($data['current_month'] as $key => $value) {
+          $name = $this->destinyGroupRepository->find($key)->name;
+          $dataOrganized['currentMonth'][$name] += count($value);
+        }
+
+        foreach($data['next_month'] as $key => $value) {
+            $name = $this->destinyGroupRepository->find($key)->name;
+            $dataOrganized['nextMonth'][$name] += count($value);
+        }
 
         return view('show-info-dashboard', [
-            "dashboardData" => $data->toArray(),
-            'partners' => $partner,
-            'links' => $data
+            "dataOrganized" => $dataOrganized,
+            "currentMonth" => ucfirst(Carbon::now()->formatLocalized('%B')),
+            "nextMonth" => ucfirst(Carbon::now()->addMonth()->formatLocalized('%B')),
         ]);
     }
 
