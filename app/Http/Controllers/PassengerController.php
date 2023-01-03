@@ -57,8 +57,17 @@ class PassengerController extends Controller
     
 
     public function getDashboard($partner_id) {
+        setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+        
+        $data = $this->passengerRepository->getDashboardCachedInfo();
 
-        $data = $this->passengerRepository->dashboardInfo($partner_id);
+        if(!isset($data)) {
+            $data = $this->passengerRepository->dashboardInfo($partner_id);
+        }
+
+        if(isset($data['created_at']) && Carbon::now()->toDateString() > $data['created_at']) {
+            $data = $this->passengerRepository->dashboardInfo($partner_id);
+        }
 
         $dataOrganized = [];
 

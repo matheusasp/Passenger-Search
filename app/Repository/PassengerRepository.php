@@ -77,10 +77,8 @@ class PassengerRepository
 
         $data = new Dashboards();
 
-      //  dd($data->first()->created_at);
-        //dd();
-        if(Carbon::now()->toDateString() > $data->first()->created_at) {
-            $currentMonth = $this->model->select(
+
+        $currentMonth = $this->model->select(
                 'partner_id',
                 'destiny_group_id',
                 'departure',
@@ -90,7 +88,7 @@ class PassengerRepository
                 ->whereMonth('arrival', Carbon::now()->month)
                 ->get()->groupBy('destiny_group_id');
 
-            $nextMonth = $this->model->select(
+        $nextMonth = $this->model->select(
                 'partner_id',
                 'destiny_group_id',
                 'departure',
@@ -100,66 +98,38 @@ class PassengerRepository
                  ->whereMonth('arrival', Carbon::now()->addMonth()->month)
                  ->get()->groupBy('destiny_group_id');
                 
-            $currentMonthCache = json_encode($currentMonth->toArray());
-            $nextMonthCache = json_encode($nextMonth->toArray());
+        $currentMonthCache = json_encode($currentMonth->toArray());
+        $nextMonthCache = json_encode($nextMonth->toArray());
                   
-        
-        
-            $data->current_month = $currentMonthCache;
-            $data->next_month =  $nextMonthCache;
-            $data->save();
+        $data->current_month = $currentMonthCache;
+        $data->next_month =  $nextMonthCache;
+        $data->save();
                 
-            $data = [
-                 'current_month' => $currentMonth->toArray(),
-                 'next_month' => $nextMonth->toArray(),
-             ];
+        $data = [
+              'current_month' => $currentMonth->toArray(),
+              'next_month' => $nextMonth->toArray(),
+            ];
         
-            return $data;
+        return $data;
+        
+
+    }
+
+    public function getDashboardCachedInfo() {
+        $data = new Dashboards();
+        
+        $data = $data->latest()->first();
+
+        if(!isset($data)) {
+            return null;
         }
-
-        $data = $data->first();
-
         $data = [
             'current_month' => json_decode($data->current_month),
             'next_month' => json_decode($data->next_month),
+            'created_at' => $data->created_at
         ]; 
 
         return $data;
-
-
-
-       /* $currentMonth = $this->model->select(
-            'partner_id',
-            'destiny_group_id',
-            'departure',
-            'arrival',
-            'cpf',
-            'ticket',
-            'status',
-            'pdf',
-            'pdf_unique'
-        )->where('status', 1)->distinct()->where(function($query) use ($currentMonth) {
-            $query->whereMonth('departure', $currentMonth);
-        })->get()->groupBy('destiny_group_id'); */
-        
-
-
-
-       /* $nextMonth = $this->model->select(
-            'partner_id',
-            'destiny_group_id',
-            'departure',
-            'arrival',
-            'cpf',
-            'ticket',
-            'status',
-            'pdf',
-            'pdf_unique'
-        )->where('status', 1)->distinct()->where(function($query) use ($nextMonth) {
-            $query->whereMonth('departure', $nextMonth);
-        })->get()->groupBy('destiny_group_id'); */
-
-
     }
 
 }
