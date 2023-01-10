@@ -56,7 +56,6 @@
                     </div>
                     @endisset
 
-
                     @isset($data)
                     <div class="container">
                         <table class="table table-bordered table-striped" id="datatable-default" style="padding: 20px;">
@@ -79,7 +78,11 @@
                                     <td style="vertical-align: middle"><center>{{$data['departure']}} / {{$data['arrival']}} </center></td>
                                     <td style="vertical-align: middle"><center>{{$data['cpf']}}</center></td>
                                     <td style="vertical-align: middle"><center>{{$data['ticket']}}</center></td>
+                                    @if(Carbon\Carbon::now()->toDateString() > $data['arrival'] && $data['status'] == 'ATIVO')
                                     <td style="vertical-align: middle"><center>{!!$data['status']!!}</center></td>
+                                    @else
+                                    <td style="vertical-align: middle"><center>{!!$data['status']!!}</center></td>
+                                    @endif
                                     <td style="vertical-align: middle"><center>{!!$data['pdf']!!}</center></td>
                                 </tr>
                             </tbody>
@@ -87,6 +90,7 @@
                         </table>
                     </div>
                     @endisset    
+
 
             </div>
         </div>
